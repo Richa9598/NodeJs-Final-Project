@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Restaurants</title>
+
+    <link rel="stylesheet" href="../bootstrap.min.css">
+</head>
+
+<body>
+    <div class="card">
+        <div class="card-body">
+            <form class="row" action="restaurants" method="get">
+                <legend>View Restaurants</legend>
+                <div class="col-auto">
+                    <label for="page" class="form-label">Enter Page Number<span class="text-danger">*</span></label>
+                    <input type="number" min="1" value="1" class="form-control" id="page" name="page">
+                </div>
+                <div class="col-auto">
+                    <label for="perPage" class="form-label">Enter Records Per Page<span class="text-danger">*</span></label>
+                    <input type="number" min="1" value="1" class="form-control" id="perPage" name="perPage">
+                </div>
+                <div class="col-auto">
+                    <label for="borough" class="form-label">Enter Borough</label>
+                    <input type="text" class="form-control" id="borough" name="borough">
+                </div>
+                <div class="col-auto">
+                    <label for="" class="form-label">&nbsp;</label>
+                    <button type="submit" class="btn btn-primary form-control">Get Restaurants</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body">
+            {{#if restaurantData}}
+            <h1>Restaurant Details</h1>
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Resturant Id</th>
+                        <th>Address</th>
+                        <th>Borough</th>
+                        <th>Cuisine</th>
+                        <th>Grade</th>
+                        <th>Grade Date</th>
+                        <th>Grade Score</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each restaurantData}}
+                    <tr>
+                        <td rowspan="{{arraySize this.grades}}">{{this.name}}</td>
+                        <td rowspan="{{arraySize this.grades}}">{{this.restaurant_id}}</td>
+                        <td rowspan="{{arraySize this.grades}}">{{this.address.building}} {{this.address.street}}
+                            {{this.address.zipcode}}</td>
+                        <td rowspan="{{arraySize this.grades}}">{{this.borough}}</td>
+                        <td rowspan="{{arraySize this.grades}}">{{this.cuisine}}</td>
+                        {{#each this.grades}}
+                        <tr>
+                            <td>{{this.grade}}</td>
+                            <td>{{this.date}}</td>
+                            <td>{{this.score}}</td>
+                        </tr>
+                        {{/each}}
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{/if}}
+        </div>
+    </div>
+</body>
+
+</html>
